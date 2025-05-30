@@ -1,0 +1,4 @@
+temporal_host: localhost:7233
+postgres_dsn: host=localhost user=postgres password=secret dbname=bank port=5433 sslmode=disable
+nats_host: nats://localhost:4222
+http_port: 8080
