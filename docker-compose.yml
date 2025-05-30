@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  temporal:
+    image: temporalio/server:latest
+    container_name: temporal
+    ports:
+      - "7233:7233"
+    environment:
+      - TEMPORAL_CLI_ADDRESS=host.docker.internal:7233
+    networks:
+      - bank-transfer-network
+
+  nats:
+    image: nats:latest
+    container_name: nats
+    ports:
+      - "4222:4222"
+    networks:
+      - bank-transfer-network
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres-alt
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=bank
+    networks:
+      - bank-transfer-network
+
+networks:
+  bank-transfer-network:
+    driver: bridge
